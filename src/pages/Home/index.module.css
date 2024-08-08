@@ -40,12 +40,12 @@
     background-color: #f9f9f9;
   }
   .profile {
+    width: 300px;
     margin: 20px 0;
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f9f9f9;
-    width: 300px;
   }
   
   .profile p {
@@ -55,6 +55,7 @@
   .profile strong {
     color: #333;
   }
+  
 .h3{
     font-size: xx-large;
 }

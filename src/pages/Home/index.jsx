@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const [cars, setCars] = useState([]);
-  const [newCar, setNewCar] = useState({ model: '', year: '' });
-  const [user, setUser] = useState(null); 
+  const [newCar, setNewCar] = useState({ model: '', year: '', color: '' });
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function Home() {
       setCars(savedCars);
 
       const userData = JSON.parse(localStorage.getItem('user'));
-      setUser(userData); 
+      setUser(userData);
     }
   }, [navigate]);
 
@@ -35,11 +35,11 @@ function Home() {
 
   function handleAddCar(event) {
     event.preventDefault();
-    if (newCar.model && newCar.year) {
+    if (newCar.model || newCar.year || newCar.color) {
       const updatedCars = [...cars, newCar];
       setCars(updatedCars);
       localStorage.setItem('cars', JSON.stringify(updatedCars));
-      setNewCar({ model: '', year: '' });
+      setNewCar({ model: '', year: '', color: '' });
     }
   }
 
@@ -78,14 +78,22 @@ function Home() {
           placeholder="Car Year"
           onChange={handleChange}
         />
+        <input
+          type="text"
+          name="color"
+          value={newCar.color}
+          placeholder="Car Color"
+          onChange={handleChange}
+        />
         <button className={styles.btn} type="submit">Add Car</button>
       </form>
 
       <div className={styles.cardsContainer}>
         {cars.map((car, index) => (
           <div key={index} className={styles.card}>
-            <h3 className={styles.h3} >Car model:{car.model}</h3>
-            <p className={styles.p}>Year: {car.year}</p>
+            <h3>{car.model}</h3>
+            <p>Year: {car.year}</p>
+            <p>Color: {car.color}</p>
             <button className={styles.btn} onClick={() => handleRemoveCar(index)}>Remove</button>
           </div>
         ))}
