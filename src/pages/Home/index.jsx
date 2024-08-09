@@ -57,6 +57,13 @@ function Home() {
       {user && (
         <div className={styles.profile}>
           <h2>User Profile</h2>
+          {user.imagePath && (
+            <img
+              src={user.imagePath}
+              alt="Profile"
+              className={styles.profileImage}
+            />
+          )}
           <p><strong>Username:</strong> {user.username}</p>
           <p><strong>Email:</strong> {user.email}</p>
         </div>

@@ -1,7 +1,7 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
     justify-content: start;
     height: 100vh;
     padding: 2rem;
@@ -34,7 +34,7 @@ a{
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 48px;
+    margin-bottom: 20px;
 }
 label{
     font-size: 12px;
@@ -87,7 +87,7 @@ label{
   
   .toggleButton {
     position: absolute;
-    right: 10px;
+    right: 250px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -100,4 +100,13 @@ label{
     gap: 10px;
     justify-content: center;
     background-color: #333333;
+}
+.url{
+    padding: 14px 16px;
+    border-radius: 6px;
+    width: 360px;
+    background-color: rgb(239, 233, 233);
+    outline: none;
+    border: none;
+    margin-bottom: 16px;
 }

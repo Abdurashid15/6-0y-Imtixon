@@ -7,6 +7,8 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false); 
   const [showRePassword, setShowRePassword] = useState(false); 
+  const [imageURL, setImageURL] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const navigate = useNavigate();
   const nameRef = useRef("");
@@ -32,13 +34,21 @@ function Register() {
       password: passwordRef.current.value,
     };
 
+    const formData = new FormData();
+    formData.append("username", user.username);
+    formData.append("email", user.email);
+    formData.append("password", user.password);
+
+    if (selectedFile) {
+      formData.append("file", selectedFile);
+    } else if (imageURL) {
+      formData.append("imageURL", imageURL);
+    }
+
     setLoading(true);
     fetch("https://auth-rg69.onrender.com/api/auth/signup", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
+      body: formData,
     })
       .then((res) => res.json())
       .then((data) => {
@@ -64,6 +74,14 @@ function Register() {
       .finally(() => {
         setLoading(false);
       });
+  }
+
+  function handleFileChange(event) {
+    setSelectedFile(event.target.files[0]);
+  }
+
+  function handleURLChange(event) {
+    setImageURL(event.target.value);
   }
 
   return (
@@ -97,7 +115,7 @@ function Register() {
               {showPassword ? "🙈" : "👁"}
             </button>
           </div>
-          <label htmlFor="Reapet password">Reapet password</label>
+          <label htmlFor="Reapet password">Repeat password</label>
           <div className={styles.passwordContainer}>
             <input
               className={styles.logininput}
@@ -114,9 +132,33 @@ function Register() {
             </button>
           </div>
 
-          {loading && <button className={styles.btn} disabled>Loading...</button>}
-          {!loading && <button className={styles.btn} onClick={handleForm}>Register</button>}
-          <Link to='/login'>Login</Link>
+          <label htmlFor="image">Profile Picture</label>
+          <div className={styles.inputGroup}>
+            <input
+              className={styles.url}
+              type="text"
+              value={imageURL}
+              onChange={handleURLChange}
+              placeholder="Enter image URL or upload a file"
+            />
+            <input
+              className={styles.logininput}
+              type="file"
+              onChange={handleFileChange}
+            />
+          </div>
+
+          {loading && (
+            <button className={styles.btn} disabled>
+              Loading...
+            </button>
+          )}
+          {!loading && (
+            <button className={styles.btn} onClick={handleForm}>
+              Register
+            </button>
+          )}
+          <Link to="/login">Login</Link>
         </form>
       </div>
     </>
